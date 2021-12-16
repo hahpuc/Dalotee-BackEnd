@@ -79,8 +79,41 @@ const getAllCard = async (req, res) => {
     }
 }
 
+const getCardsByCategory = async (req, res) => {
+    try {
+        const cards = await Card.find({ category: req.params.id }).populate('category').populate('keyword');
+        res.status(StatusCode.SuccessStatus).json({
+            code: StatusCode.SuccessStatus,
+            data: cards,
+        })
+    } catch (error) {
+        res.status(StatusCode.ResourceNotFound).json({
+            code: StatusCode.ResourceNotFound,
+            error: error.message
+        })
+    }
+}
+
+const getCardsByNumber = async (req, res) => {
+    try {
+        const cards = await Card.find({ number: req.params.number }).populate('category').populate('keyword');
+
+        res.status(StatusCode.SuccessStatus).json({
+            code: StatusCode.SuccessStatus,
+            data: cards,
+        })
+    } catch (error) {
+        res.status(StatusCode.ResourceNotFound).json({
+            code: StatusCode.ResourceNotFound,
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     createCard,
     getCardByID,
     getAllCard,
+    getCardsByCategory,
+    getCardsByNumber,
 }
