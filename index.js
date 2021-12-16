@@ -4,7 +4,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 
-const testRoutes = require('./routes/test.js');
+const categoryRoutes = require('./routes/category.js');
+const cardRoutes = require('./routes/card.js');
+const keywordRoutes = require('./routes/keyword.js');
 
 const app = express();
 dotenv.config();
@@ -18,7 +20,9 @@ app.use(express.urlencoded({
 app.use(cors());
 app.use(morgan('short'));
 
-app.use('', testRoutes);
+app.use('', categoryRoutes);
+app.use('', cardRoutes);
+app.use('', keywordRoutes);
 
 app.get('/', (req, res) => {
     res.send("Hello to my Tarot API")
@@ -32,4 +36,4 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
     .catch((error) => console.log(error.message));
 
 
-mongoose.set('useFindAndModify', false);
+// mongoose.set('useFindAndModify', false);
